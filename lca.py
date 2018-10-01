@@ -6,15 +6,41 @@ class Node:
         self.left = None
 		
 def findLCA(root, node1, node2):
-    #sample code to test python unit testing
-	if(not (contains(node1) and contains(node2))):
-		return -1
-		
-	return root.key
+    
+    if( not (contains(root, node1) and contains(root, node2))):
+        return -1
+    
+    path1 = []
+    path2 = []
+    
+    path1 = path(root, node1, path1)
+    path2 = path(root, node2, path2)
+    
+    i=0
+    while(i < len(path1) and i < len(path2)):
+        if path1[i] != path2[i]:
+            break
+        i += 1
+    return path1[i-1]
+    
+    
+def path(root, key, p):
+    if root == None:
+        return []
+    if root.key == key:
+        p.append(root.key)
+        return p
+    
+    
+    if( path(root.left, key, p) or path(root.left, key, p)):
+        p.append(root.key)
+    print(p)
+    return p
+        
 	 
-def contains(key):
+def contains(root, key):
     #sample code to test python unit testing
-	if(node >= 0 and node <=8):
+	if(key >= 0 and key <=8):
 		return True
 	return False
 	
