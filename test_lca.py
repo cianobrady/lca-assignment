@@ -18,11 +18,11 @@ class TestLCA(unittest.TestCase):
         node.left.right.right = lca.Node(5)
         node.left.right.right = lca.Node(8)
 		
-		#test nodes with same parent
+        #test nodes with same parent
         self.assertEqual(lca.findLCA(node, 4, 3), 6)
         #test nodes with different parent
         self.assertEqual(lca.findLCA(node, 2, 1), 0)
-		#test error scenario: node not in binary tree
+        #test error scenario: node not in binary tree
         self.assertEqual(lca.findLCA(node, 2, 9), -1)
 		
     def test_contains(self):
@@ -41,8 +41,8 @@ class TestLCA(unittest.TestCase):
         node.left.right.right = lca.Node(8)
         
         #test root
-        self.assertEqual(lca.contains(0), True)
+        self.assertEqual(lca.contains(node, 0), True)
         #test key in tree
-        self.assertEqual(lca.contains(2), True)
+        self.assertEqual(lca.contains(node, 2), True)
         #test key not in tree
-        self.assertEqual(lca.contains(9), False)
+        self.assertEqual(lca.contains(node, 9), False)
