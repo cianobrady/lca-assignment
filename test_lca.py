@@ -21,7 +21,7 @@ class TestLCA(unittest.TestCase):
         #test nodes with same parent
         self.assertEqual(lca.findLCA(node, 4, 3), 6)
         #test nodes with different parent
-        self.assertEqual(lca.findLCA(node, 2, 1), 0)
+        self.assertEqual(lca.findLCA(node, 2, 1), 2)
         #test error scenario: node not in binary tree
         self.assertEqual(lca.findLCA(node, 2, 9), -1)
 		
