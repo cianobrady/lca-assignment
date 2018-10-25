@@ -1,33 +1,3 @@
-class Graph:
-    # Graph constructor
-    def __init__(self):
-        self.edges = {}
-        self.vertices = {}
-        self.vertices_count = 0
-        self.edges_count = 0
-
-    def addVertex(self, key):
-        vertex = Vertex(key)
-        self.vertices[vertices_count] = vertex
-        self.vertices_count = vertices_count + 1
-
-    def addEdge(self, src, dst):
-        edge = Edge(src, dst)
-        self.edges[edges_count] = edge
-        self.edges_count = edges_count + 1
-
-class Vertex:
-    # Vertex constructor
-    def __init__(self, key):
-        self.key = key
-
-class Edge:
-    # Edge constructor
-    def __init__(self, src, dst):
-        srcVertex = Vertex(src)
-        srcVertex = Vertex(dst)
-        self.src = srcVertex
-        self.dst = dstVertex
 
 #findLCA takes in the root of a tree and two nodes and returns the LCA of the two nodes if they are both present in the tree\
 def findLCA(root, key1, key2):
