@@ -7,37 +7,21 @@ class TestLCA(unittest.TestCase):
 
         #test if no tree
         graph = None
-        self.assertEqual(lca.findLCA(graph, 4, 3), -1)
+        self.assertEqual(lca.findLCA(graph, "B", "A"), -1)
 
         # Creating a DAG
-        graph = lca.Graph()
-
+        graph = {"A" : []}
         #test root only tree
-        graph.addVertex(0)
-        self.assertEqual(lca.findLCA(graph, 0, 0), 0)
+        self.assertEqual(lca.findLCA(graph, "A", "A"), "A")
 
-        graph.addVertex(0)
-        graph.addVertex(1)
-        graph.addVertex(2)
-        graph.addVertex(3)
-        graph.addVertex(4)
-        graph.addVertex(5)
-        graph.addVertex(6)
-
-        graph.addEdge(6, 3)
-        graph.addEdge(6, 5)
-        graph.addEdge(3, 2)
-        graph.addEdge(5, 4)
-        graph.addEdge(2, 1)
-        graph.addEdge(4, 1)
-        graph.addEdge(1, 0)
+        graph = { "A" : [], "B" : ["A"], "C" : ["B"], "D" : ["C"], "E" : ["B"], "F" : ["E"], "G" : ["D", "F"] }
 
 
         #test nodes with same parent
-        self.assertEqual(lca.findLCA(graph, 2, 4), 6)
+        self.assertEqual(lca.findLCA(graph, "D", "F"), "G")
         #test nodes with different parent
-        self.assertEqual(lca.findLCA(graph, 0, 1), 1)
+        self.assertEqual(lca.findLCA(graph, "A", "B"), "B")
         #test error scenario: node not in binary tree
-        self.assertEqual(lca.findLCA(graph, 2, 9), -1)
-        #test error scenario: non integer node
-        self.assertEqual(lca.findLCA(graph, "a", 9), -1)
+        self.assertEqual(lca.findLCA(graph, "C", "H"), -1)
+        #test error scenario: non string node
+        self.assertEqual(lca.findLCA(graph, "A", 9), -1)
