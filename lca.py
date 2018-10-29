@@ -2,33 +2,53 @@
 #findLCA takes in the root of a tree and two nodes and returns the LCA of the two nodes if they are both present in the tree\
 def findLCA(graph, root, key1, key2):
     #if tree does not contain key, return error
+    if not graph or not root:
+        return -1
     if(key1 not in graph ) or (key2 not in graph):
         return -1
 
     #creating paths from root to given keys
-    paths1 = paths(graph, root, key1)
-    paths2 = paths(graph, root, key2)
+    nodes = []
+    for node in graph:
+        nodes.append(node)
 
-    #verifies when paths differ and determines that the node in each path before the difference is the LCA
-    i=0
-    while(i < len(path1) and i < len(path2)):
-        if path1[i] != path2[i]:
-            break
-        i += 1
-    return path1[i-1]
+    #creates a list containing the depth of each node
+    depths = []
+    i = 0
+    while(i<len(nodes)):
+        shortest = shortest_path(graph, root, nodes[i])
+        if not shortest:
+            depths.append(None)
+        else:
+            depths.append(len(shortest)-1)
+        i = i+1
+
+    i = 0
+    lca = None
+    max_depth = 0
+    while(i<len(nodes)):
+        test1 = shortest_path(graph, nodes[i], key1)
+        test2 = shortest_path(graph, nodes[i], key2)
+        if (test1!=None) and (test2!=None) and (depths[i]!=None):
+            if(depths[i]>=max_depth):
+                max_depth = depths[i]
+                lca = nodes[i]
+        i = i+1
+    return lca
 
 #paths takes in a graph and two keys within that graph and returns the path from the first key to the second key
 #paths was developed using graph tutorial at https://www.python.org/doc/essays/graphs/
-def paths(graph, key1, key2, path=[]):
+def shortest_path(graph, key1, key2, path=[]):
     path = path + [key1]
     if key1 == key2:
         return path
     if key1 not in graph:
         return []
-    paths = []
+    shortest = None
     for newKey in graph[key1]:
         if newKey not in path:
-            thePaths = paths(graph, newKey, key2, path)
-            for thePath in thePaths:
-                paths.append(thePaths)
-    return paths
+            new = shortest_path(graph, newKey, key2, path)
+            if new:
+                if not shortest or len(new) < len(shortest):
+                    shortest = new
+    return shortest
