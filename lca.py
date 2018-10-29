@@ -5,11 +5,9 @@ def findLCA(graph, root, key1, key2):
     if(key1 not in graph ) or (key2 not in graph):
         return -1
 
-    path1 = []
-    path2 = []
     #creating paths from root to given keys
-    path1 = paths(graph, root, key1)
-    path2 = paths(graph, root, key2)
+    paths1 = paths(graph, root, key1)
+    paths2 = paths(graph, root, key2)
 
     #verifies when paths differ and determines that the node in each path before the difference is the LCA
     i=0
@@ -25,9 +23,12 @@ def paths(graph, key1, key2, path=[]):
     path = path + [key1]
     if key1 == key2:
         return path
+    if key1 not in graph:
+        return []
+    paths = []
     for newKey in graph[key1]:
         if newKey not in path:
-            thePath = paths(graph, newKey, key2, path)
-            if thePath:
-                return thePath
-    return None
+            thePaths = paths(graph, newKey, key2, path)
+            for thePath in thePaths:
+                paths.append(thePaths)
+    return paths
