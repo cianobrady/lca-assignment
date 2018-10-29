@@ -1,18 +1,19 @@
 
-#findLCA takes in the root of a tree and two nodes and returns the LCA of the two nodes if they are both present in the tree\
+#findLCA takes in a graph, its root and two nodes and returns the LCA of the two nodes if they are both present in the tree
 def findLCA(graph, root, key1, key2):
-    #if tree does not contain key, return error
+    #if null graph or null root return error
     if not graph or not root:
         return -1
+    #if graph does not contain key, return error
     if(key1 not in graph ) or (key2 not in graph):
         return -1
 
-    #creating paths from root to given keys
+    #creates a list of nodes in graph
     nodes = []
     for node in graph:
         nodes.append(node)
 
-    #creates a list containing the depth of each node
+    #creates a list containing the depth of each node, that corresponds to the list of nodes
     depths = []
     i = 0
     while(i<len(nodes)):
@@ -23,6 +24,7 @@ def findLCA(graph, root, key1, key2):
             depths.append(len(shortest)-1)
         i = i+1
 
+    #finds common ancestors of the two nodes and returns the ancestor with the greatest depth (and therefore the lca)
     i = 0
     lca = None
     max_depth = 0
@@ -36,13 +38,17 @@ def findLCA(graph, root, key1, key2):
         i = i+1
     return lca
 
-#paths takes in a graph and two keys within that graph and returns the path from the first key to the second key
-#paths was developed using graph tutorial at https://www.python.org/doc/essays/graphs/
+#shortest_path takes in a graph and two keys within that graph and returns the shortest path from the first key to the second key
+#shortest_path was developed using graph tutorial at https://www.python.org/doc/essays/graphs/
 def shortest_path(graph, key1, key2, path=[]):
+    if not graph:
+        return []
     path = path + [key1]
     if key1 == key2:
         return path
     if key1 not in graph:
+        return []
+    if key2 not in graph:
         return []
     shortest = None
     for newKey in graph[key1]:
