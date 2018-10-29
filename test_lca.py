@@ -1,11 +1,11 @@
 import unittest
 import lca
-#comment added to test branching
+
 class TestLCA(unittest.TestCase):
 
     def test_findLCA(self):
 
-        #test if no tree
+        #test if no graph
         graph = None
         root = None
         self.assertEqual(lca.findLCA(graph, root, "B", "A"), -1)
@@ -13,7 +13,7 @@ class TestLCA(unittest.TestCase):
         # Creating a DAG
         graph = {'G' : []}
         root = 'G'
-        #test root only tree
+        #test root only graph
         self.assertEqual(lca.findLCA(graph, root, 'G', 'G'), 'G')
 
         graph = { 'A' : [], 'B' : ['A'], 'C' : ['B'], 'D' : ['C'], 'E' : ['B'], 'F' : ['E'], 'G' : ['D', 'F'] }
@@ -23,7 +23,7 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(lca.findLCA(graph, root, 'D', 'F'), 'G')
         #test nodes with different parent
         self.assertEqual(lca.findLCA(graph, root, 'A', 'B'), 'B')
-        #test error scenario: node not in binary tree
+        #test error scenario: node not in graph
         self.assertEqual(lca.findLCA(graph, root, 'C', 'H'), -1)
         #test error scenario: non string node
         self.assertEqual(lca.findLCA(graph, root, 'A', 9), -1)
